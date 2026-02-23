@@ -178,6 +178,35 @@
 }
 %end
 
+// Direct sticker tray picker view
+%hook IGStickerTrayListAdapterDataSource
+- (id)objectsForListAdapter:(id)arg1 {
+    NSArray *originalObjs = %orig();
+    NSMutableArray *filteredObjs = [NSMutableArray arrayWithCapacity:[originalObjs count]];
+
+    for (id obj in originalObjs) {
+        BOOL shouldHide = NO;
+
+        if ([SCIUtils getBoolPref:@"hide_meta_ai"]) {
+
+            if ([obj isKindOfClass:%c(IGDirectUnifiedComposerAIStickerModel)]) {
+                NSLog(@"[SCInsta] Hiding meta ai: AI stickers option in sticker view");
+                
+                shouldHide = YES;
+            }
+            
+        }
+
+        // Populate new objs array
+        if (!shouldHide) {
+            [filteredObjs addObject:obj];
+        }
+    }
+
+    return [filteredObjs copy];
+}
+%end
+
 /////////////////////////////////////////////////////////////////////////////
 
 // Explore
