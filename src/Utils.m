@@ -202,6 +202,8 @@
 
     return NO;
 }
+
+// Alerts
 + (BOOL)showConfirmation:(void(^)(void))okHandler title:(NSString *)title {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:title message:@"Are you sure?" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -243,14 +245,31 @@
 
     [topMostController() presentViewController:alert animated:YES completion:nil];
 };
-+ (void)prepareAlertPopoverIfNeeded:(UIAlertController*)alert inView:(UIView*)view {
-    if (alert.popoverPresentationController) {
-        // UIAlertController is a popover on iPad. Display it in the center of a view.
-        alert.popoverPresentationController.sourceView = view;
-        alert.popoverPresentationController.sourceRect = CGRectMake(view.bounds.size.width / 2.0, view.bounds.size.height / 2.0, 1.0, 1.0);
-        alert.popoverPresentationController.permittedArrowDirections = 0;
-    }
-};
+
+// Toasts
++ (void)showToastForDuration:(double)duration title:(NSString *)title subtitle:(NSString *)subtitle {
+    // Root VC
+    Class rootVCClass = NSClassFromString(@"IGRootViewController");
+
+    UIViewController *topMostVC = topMostController();
+    if (![topMostVC isKindOfClass:rootVCClass]) return;
+
+    IGRootViewController *rootVC = (IGRootViewController *)topMostVC;
+
+    // Presenter
+    IGActionableConfirmationToastPresenter *toastPresenter = [rootVC toastPresenter];
+    if (toastPresenter == nil) return;
+
+    // View Model
+    Class modelClass = NSClassFromString(@"IGActionableConfirmationToastViewModel");
+    IGActionableConfirmationToastViewModel *model = [modelClass new];
+    
+    [model setValue:title forKey:@"text_annotatedTitleText"];
+    [model setValue:subtitle forKey:@"text_annotatedSubtitleText"];
+
+    // Show toast
+    [toastPresenter showAlertWithViewModel:model isAnimated:true animationDuration:duration presentationPriority:0 tapActionBlock:nil presentedHandler:nil dismissedHandler:nil];
+}
 
 // Math
 + (NSUInteger)decimalPlacesInDouble:(double)value {

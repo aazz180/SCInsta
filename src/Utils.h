@@ -58,12 +58,16 @@
 + (BOOL)isNotch;
 
 + (BOOL)existingLongPressGestureRecognizerForView:(UIView *)view;
+
+// Alerts
 + (BOOL)showConfirmation:(void(^)(void))okHandler title:(NSString *)title;
 + (BOOL)showConfirmation:(void(^)(void))okHandler cancelHandler:(void(^)(void))cancelHandler title:(NSString *)title;
 + (BOOL)showConfirmation:(void(^)(void))okHandler;
 + (BOOL)showConfirmation:(void(^)(void))okHandler cancelHandler:(void(^)(void))cancelHandler;
 + (void)showRestartConfirmation;
-+ (void)prepareAlertPopoverIfNeeded:(UIAlertController*)alert inView:(UIView*)view;
+
+// Toasts
++ (void)showToastForDuration:(double)duration title:(NSString *)title subtitle:(NSString *)subtitle;
 
 // Math
 + (NSUInteger)decimalPlacesInDouble:(double)value;

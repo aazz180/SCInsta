@@ -11,7 +11,19 @@
 - (id)normalizedURL; // method provided by Instagram app
 @end
 
+@interface IGActionableConfirmationToastViewModel : NSObject {
+    NSString *_text_annotatedTitleText;
+    NSString *_text_annotatedSubtitleText;
+}
+@end
+
+@interface IGActionableConfirmationToastPresenter : NSObject
+- (void)showAlertWithViewModel:(id)model isAnimated:(_Bool)animated animationDuration:(double)duration presentationPriority:(long long)priority tapActionBlock:(id)tap presentedHandler:(id)presented dismissedHandler:(id)dismissed;
+@end
+
 @interface IGRootViewController : UIViewController
+- (IGActionableConfirmationToastPresenter *)toastPresenter;
+
 - (void)addHandleLongPress; // new
 - (void)handleLongPress:(UILongPressGestureRecognizer *)sender; // new
 @end
@@ -448,6 +460,7 @@
 
 @interface IGDSMenuItem : NSObject
 @end
+
 
 
 /////////////////////////////////////////////////////////////////////////////
