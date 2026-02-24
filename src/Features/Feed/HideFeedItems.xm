@@ -246,6 +246,16 @@ static NSArray *removeItemsInList(NSArray *list, BOOL isFeed) {
     return %orig;
 }
 %end
+// Demangled name: IGExploreViewControllerSwift.IGExploreListKitDataSource
+%hook _TtC28IGExploreViewControllerSwift26IGExploreListKitDataSource
+- (NSArray *)objectsForListAdapter:(id)arg1 {
+    if ([SCIUtils getBoolPref:@"hide_ads"]) {
+        return removeItemsInList(%orig, NO);
+    }
+
+    return %orig;
+}
+%end
 
 // Hide shopping carousel in reel comments
 // Demangled name: IGCommentThreadCommerceCarouselPill.IGCommentThreadCommerceCarousel
