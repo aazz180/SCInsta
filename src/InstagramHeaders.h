@@ -83,8 +83,11 @@
 - (id)imageURLForWidth:(CGFloat)width;
 @end
 
-@interface IGMedia : NSObject
-@property(nonatomic, readonly) BOOL isOrganicMedia;
+@interface IGBaseMedia : NSObject
+@property (retain, nonatomic) id explorePostInFeed;
+@end
+
+@interface IGMedia : IGBaseMedia
 @property(readonly) IGVideo *video;
 @property(readonly) IGPhoto *photo;
 @end
