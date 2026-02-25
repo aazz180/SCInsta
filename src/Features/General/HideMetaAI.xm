@@ -305,6 +305,13 @@
 }
 %end
 
+// AI generated fonts in text entry
+%hook IGStoryTextToolPickerView
+- (id)initWithMenuConfiguration:(unsigned long long)configuration isAIFontsEnabled:(_Bool)enabled genAINuxManager:(id)manager {
+    return %orig(configuration, [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : enabled, manager);
+}
+%end
+
 /////////////////////////////////////////////////////////////////////////////
 
 // Other
