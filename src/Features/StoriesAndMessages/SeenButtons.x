@@ -44,7 +44,7 @@
     if ([nearestVC isKindOfClass:%c(IGDirectThreadViewController)]) {
         [(IGDirectThreadViewController *)nearestVC markLastMessageAsSeen];
 
-        [SCIUtils showToastForDuration:3.0 title:@"Marked messages as seen" subtitle:nil];
+        [SCIUtils showToastForDuration:2.5 title:@"Marked messages as seen" subtitle:nil];
     }
 }
 // DM visual messages viewed button
@@ -52,9 +52,14 @@
     if (dmVisualMsgsViewedButtonEnabled) {
         dmVisualMsgsViewedButtonEnabled = false;
         [sender setTintColor:UIColor.labelColor];
-    } else {
+
+        [SCIUtils showToastForDuration:4.5 title:@"Visual messages can be replayed without expiring" subtitle:nil];
+    }
+    else {
         dmVisualMsgsViewedButtonEnabled = true;
         [sender setTintColor:SCIUtils.SCIColor_Primary];
+
+        [SCIUtils showToastForDuration:4.5 title:@"Visual messages will now expire after viewing" subtitle:nil];
     }
 }
 %end
