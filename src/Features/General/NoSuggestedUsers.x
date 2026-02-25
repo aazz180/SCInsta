@@ -184,3 +184,44 @@
     return %orig(arg1, arg2);
 }
 %end
+
+// Follow request/discover section (accessed through notifications page)
+// Demangled name: IGFriendingCenter.IGFriendingCenterViewController
+%hook _TtC17IGFriendingCenter31IGFriendingCenterViewController
+- (id)objectsForListAdapter:(id)arg1 {
+    NSArray *originalObjs = %orig(arg1);
+    NSMutableArray *filteredObjs = [NSMutableArray arrayWithCapacity:[originalObjs count]];
+
+    for (IGStoryTrayViewModel *obj in originalObjs) {
+        BOOL shouldHide = NO;
+
+        if ([SCIUtils getBoolPref:@"no_suggested_users"]) {
+
+            // Suggested user
+            if ([obj isKindOfClass:%c(IGDiscoverPeopleItemConfiguration)]) {
+                NSLog(@"[SCInsta] Hiding suggested users: follow list suggested user");
+
+                shouldHide = YES;
+            }
+
+            // Section header 
+            else if ([obj isKindOfClass:%c(IGLabelItemViewModel)]) {
+
+                // "Suggested for you" search results header
+                if ([[obj valueForKey:@"labelTitle"] isEqualToString:@"Suggested for you"]) {
+                    shouldHide = YES;
+                }
+
+            }
+
+        }
+
+        // Populate new objs array
+        if (!shouldHide) {
+            [filteredObjs addObject:obj];
+        }
+    }
+
+    return [filteredObjs copy];
+}
+%end
