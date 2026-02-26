@@ -2,7 +2,6 @@
 #import "InstagramHeaders.h"
 #import "Tweak.h"
 #import "Utils.h"
-#import "Settings/SCISettingsViewController.h"
 
 ///////////////////////////////////////////////////////////
 
@@ -70,11 +69,7 @@ BOOL dmVisualMsgsViewedButtonEnabled = false;
 
             // Display settings modal on screen
             NSLog(@"[SCInsta] Displaying SCInsta first-time settings modal");
-            UIViewController *rootController = [[self window] rootViewController];
-            SCISettingsViewController *settingsViewController = [SCISettingsViewController new];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-
-            [rootController presentViewController:navigationController animated:YES completion:nil];
+            [SCIUtils showSettingsVC:[self window]];
         }
     });
 

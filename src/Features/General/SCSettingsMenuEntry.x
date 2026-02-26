@@ -26,10 +26,6 @@
     
     NSLog(@"[SCInsta] Tweak settings gesture activated");
 
-    UIViewController *rootController = [[self window] rootViewController];
-    SCISettingsViewController *settingsViewController = [SCISettingsViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    
-    [rootController presentViewController:navigationController animated:YES completion:nil];
+    [SCIUtils showSettingsVC:[self window]];
 }
 %end

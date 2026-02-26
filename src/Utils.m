@@ -89,6 +89,13 @@
     }
     [topMostController() presentViewController:acVC animated:true completion:nil];
 }
++ (void)showSettingsVC:(UIWindow *)window {
+    UIViewController *rootController = [window rootViewController];
+    SCISettingsViewController *settingsViewController = [SCISettingsViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    
+    [rootController presentViewController:navigationController animated:YES completion:nil];
+}
 
 // Colours
 + (UIColor *)SCIColor_Primary {

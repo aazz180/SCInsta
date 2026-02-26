@@ -9,6 +9,8 @@
 #import "InstagramHeaders.h"
 #import "QuickLook.h"
 
+#import "Settings/SCISettingsViewController.h"
+
 #define SCILog(fmt, ...) \
     do { \
         NSString *tmpStr = [NSString stringWithFormat:(fmt), ##__VA_ARGS__]; \
@@ -30,6 +32,7 @@
 // Displaying View Controllers
 + (void)showQuickLookVC:(NSArray<id> *)items;
 + (void)showShareVC:(id)item;
++ (void)showSettingsVC:(UIWindow *)window;
 
 // Colours
 + (UIColor *)SCIColor_Primary;
