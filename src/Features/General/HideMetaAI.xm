@@ -373,9 +373,9 @@
 %end
 
 // AI generated fonts in text entry
-%hook IGStoryTextToolPickerView
-- (id)initWithMenuConfiguration:(unsigned long long)configuration isAIFontsEnabled:(_Bool)enabled genAINuxManager:(id)manager {
-    return %orig(configuration, [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : enabled, manager);
+%hook IGCreationTextToolView
+- (id)initWithMenuConfiguration:(unsigned long long)configuration userSession:(id)session creationEntryPoint:(long long)point isAIFontsEnabled:(_Bool)enabled genAINuxManager:(id)manager showFontBadge:(_Bool)badge {
+    return %orig(configuration, session, point, [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : enabled, manager, badge);
 }
 %end
 
