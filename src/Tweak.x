@@ -394,6 +394,15 @@ shouldPersistLastBugReportId:(id)arg6
             }
         }
 
+        // Hide notes tray
+        else if ([obj isKindOfClass:%c(IGDirectNotesTrayRowViewModel)]) {
+            if ([SCIUtils getBoolPref:@"hide_notes_tray"]) {
+                NSLog(@"[SCInsta] Hiding notes tray");
+
+                shouldHide = YES;
+            }
+        }
+
         // Populate new objs array
         if (!shouldHide) {
             [filteredObjs addObject:obj];
