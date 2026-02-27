@@ -476,6 +476,9 @@
 @interface IGStoryFullscreenDefaultFooterView : NSObject
 @end
 
+@interface IGDirectThreadThemePickerOption : NSObject
+@end
+
 
 
 /////////////////////////////////////////////////////////////////////////////

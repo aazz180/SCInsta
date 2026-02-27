@@ -256,6 +256,38 @@
 }
 %end
 
+// AI generated DM channel themes
+%hook IGDirectThreadThemePickerViewController
+- (id)objectsForListAdapter:(id)arg1 {
+    NSArray *originalObjs = %orig();
+    NSMutableArray *filteredObjs = [NSMutableArray arrayWithCapacity:[originalObjs count]];
+
+    for (id obj in originalObjs) {
+        BOOL shouldHide = NO;
+
+        if ([SCIUtils getBoolPref:@"hide_meta_ai"]) {
+
+            if (
+                [obj isKindOfClass:%c(IGDirectThreadThemePickerOption)]
+                && [[obj valueForKey:@"themeId"] isEqualToString:@"direct_ai_theme_creation"]
+            ) {
+                NSLog(@"[SCInsta] Hiding meta ai: AI generated DM channel themes");
+                
+                shouldHide = YES;
+            }
+            
+        }
+
+        // Populate new objs array
+        if (!shouldHide) {
+            [filteredObjs addObject:obj];
+        }
+    }
+
+    return [filteredObjs copy];
+}
+%end
+
 /////////////////////////////////////////////////////////////////////////////
 
 // Explore
