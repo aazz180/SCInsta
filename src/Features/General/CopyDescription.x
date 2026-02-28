@@ -40,6 +40,11 @@
     pasteboard.string = result;
 
     // Notify user
-    [SCIUtils showToastForDuration:2.5 title:@"Copied text to clipboard"];
+    JGProgressHUD *HUD = [[JGProgressHUD alloc] init];
+    HUD.textLabel.text = @"Copied text to clipboard";
+    HUD.indicatorView = [[JGProgressHUDSuccessIndicatorView alloc] init];
+    
+    [HUD showInView:topMostController().view];
+    [HUD dismissAfterDelay:2.0];
 }
 %end
