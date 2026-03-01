@@ -250,9 +250,9 @@
                       entryPoint:(long long)arg15
                     canTapAuthor:(_Bool)arg16
 {
-    BOOL hideAiRestyle = [SCIUtils getBoolPref:@"hide_meta_ai"];
+    BOOL showAiRestyle = [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : arg6;
 
-    return %orig(arg1, arg2, arg3, arg4, arg5, !hideAiRestyle, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
+    return %orig(arg1, arg2, arg3, arg4, arg5, showAiRestyle, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
 }
 %end
 
@@ -397,6 +397,22 @@
 %hook IGCreationTextToolView
 - (id)initWithMenuConfiguration:(unsigned long long)configuration userSession:(id)session creationEntryPoint:(long long)point isAIFontsEnabled:(_Bool)enabled genAINuxManager:(id)manager showFontBadge:(_Bool)badge {
     return %orig(configuration, session, point, [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : enabled, manager, badge);
+}
+%end
+
+// Text rewrite in text entry
+%hook IGStoryTextMentionLocationPickerView
+- (id)initWithIsTextRewriteEnabled:(_Bool)arg1
+             isImageRewriteEnabled:(_Bool)arg2
+      isStackedToolSelectorEnabled:(_Bool)arg3
+          isMentionLocationVisible:(_Bool)arg4
+           isEnabledForFeedCaption:(_Bool)arg5
+                  isFeedEntryPoint:(_Bool)arg6
+{
+    _Bool isTextRewriteEnabled = [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : arg1;
+    _Bool isImageRewriteEnabled = [SCIUtils getBoolPref:@"hide_meta_ai"] ? false : arg2;
+
+    return %orig(isTextRewriteEnabled, isImageRewriteEnabled, arg3, arg4, arg5, arg6);
 }
 %end
 
